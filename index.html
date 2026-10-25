@@ -1,0 +1,466 @@
+<!-- Main HTML document containing app screen structure and templates. Safe to edit structure. -->
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#0f0645" />
+  <title>CosmoTask - Mission Control To-Do</title>
+
+
+
+  <!-- App Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Top Mission Control Header -->
+  <header class="app-header">
+    <div class="header-content">
+      <div class="brand-wrapper">
+        <img class="app-logo" src="assets/logo.svg" alt="CosmoTask Logo" />
+        <div class="brand-text-group">
+          <div class="brand-title-row">
+            <span class="brand-name">CosmoTask</span>
+            <span class="brand-pulse-dot" title="Telemetry nominal"></span>
+          </div>
+          <span class="brand-subtitle">MISSION CONTROL</span>
+        </div>
+      </div>
+      <div class="header-avatar" title="Astronaut Profile">
+        <span class="material-symbols-outlined" style="font-size: 20px;">person</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- In-App Reminder Banner (Slides down when reminder fires while app is open) -->
+  <div id="inapp-reminder-banner" class="inapp-banner-overlay" role="alert">
+    <div class="banner-icon-bubble">
+      <span class="material-symbols-outlined" id="inapp-banner-icon">rocket_launch</span>
+    </div>
+    <div class="banner-content">
+      <h3 class="banner-title" id="inapp-banner-title">Orbital Alert</h3>
+      <p class="banner-body" id="inapp-banner-body">Task deadline notification received.</p>
+    </div>
+    <button id="inapp-banner-dismiss" class="banner-dismiss-btn" aria-label="Dismiss banner">
+      <span class="material-symbols-outlined" style="font-size: 20px;">close</span>
+    </button>
+  </div>
+
+  <!-- Main Viewport -->
+  <main class="main-viewport">
+
+    <!-- SCREEN 1: HOME (ORBIT) -->
+    <section id="view-home" class="screen-view active">
+      <!-- Search Bar Pod (Debossed / Inset) -->
+      <div class="search-container">
+        <div class="search-pod">
+          <span class="material-symbols-outlined search-icon">search</span>
+          <input id="search-input" class="search-input" type="text" placeholder="Search your orbital tasks..." autocomplete="off" />
+          <button id="search-clear-btn" class="search-clear-btn" type="button" aria-label="Clear Search" style="display: none;">
+            <span class="material-symbols-outlined" style="font-size: 16px;">close</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Section Title -->
+      <div class="section-headline">
+        <span class="section-caption">Today's Orbit</span>
+        <h1 class="section-title">Mission Log</h1>
+      </div>
+
+      <!-- Animated Thought Banner (Notched Dark Void Card with Overlapping 3D Astronaut) -->
+      <div id="thought-banner-wrapper" class="thought-card-wrapper">
+        <div class="astronaut-graphic">
+          <img class="astronaut-img" src="assets/astronaut.svg" alt="Floating 3D Astronaut" />
+        </div>
+        <div class="thought-banner-card">
+          <div class="thought-badge">
+            <span class="badge-dot"></span>
+            TODAY'S THOUGHT
+          </div>
+          <div class="thought-content-box">
+            <p id="thought-text" class="thought-text">
+              <span id="thought-content-span">Initializing orbital consciousness...</span><span id="typewriter-cursor" class="typewriter-cursor"></span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Three Neumorphic Counter Pods -->
+      <div class="counters-grid">
+        <!-- Pending (Sky Blue) -->
+        <div id="counter-pending" class="counter-pod" data-filter="pending" role="button" tabindex="0">
+          <div class="pod-header">
+            <span class="pod-dot pending"></span>
+            <span class="pod-label">Pending</span>
+          </div>
+          <span id="count-pending" class="pod-number">00</span>
+          <span class="pod-subtext pending-sub">Tasks In-Flight</span>
+        </div>
+
+        <!-- Done (Mint Green) -->
+        <div id="counter-done" class="counter-pod" data-filter="done" role="button" tabindex="0">
+          <div class="pod-header">
+            <span class="pod-dot done"></span>
+            <span class="pod-label">Done</span>
+          </div>
+          <span id="count-done" class="pod-number">00</span>
+          <span class="pod-subtext done-sub">Calibrated</span>
+        </div>
+
+        <!-- Overdue (Soft Coral Red) -->
+        <div id="counter-overdue" class="counter-pod" data-filter="overdue" role="button" tabindex="0">
+          <div class="pod-header">
+            <span class="pod-dot overdue"></span>
+            <span class="pod-label">Overdue</span>
+          </div>
+          <span id="count-overdue" class="pod-number overdue-num">00</span>
+          <span class="pod-subtext overdue-sub">Critical Drift</span>
+        </div>
+      </div>
+
+      <!-- Task Section Controls -->
+      <div class="task-section-header">
+        <span class="task-section-title">
+          <span class="material-symbols-outlined" style="font-size: 16px; color: var(--color-primary);">orbit</span>
+          Active Orbits
+        </span>
+        <span id="tasks-radar-count" class="task-section-count">0 TASKS IN RADAR</span>
+      </div>
+
+      <!-- Task List Container -->
+      <div id="tasks-container" class="task-list">
+        <!-- Tasks rendered dynamically via app.js -->
+      </div>
+
+      <!-- Friendly Empty State (shown when no tasks match) -->
+      <div id="tasks-empty-state" class="empty-state-card" style="display: none;">
+        <img class="empty-rocket-img" src="assets/rocket.svg" alt="Friendly space rocket" />
+        <h3 class="empty-title">Radar All Clear</h3>
+        <p class="empty-desc">No tasks in your immediate orbit. Tap the launch button below to schedule a new mission!</p>
+      </div>
+
+      <!-- Ambient Planetary Graphic Divider -->
+      <div class="ambient-divider">
+        <div class="divider-line"></div>
+        <div class="divider-node">
+          <span class="material-symbols-outlined" style="font-size: 16px;">public</span>
+        </div>
+      </div>
+
+      <!-- Floating Action Button (FAB) -->
+      <div class="fab-container">
+        <button id="btn-add-task" class="neumorphic-fab" aria-label="Create New Task" type="button">
+          <span class="material-symbols-outlined">add</span>
+        </button>
+      </div>
+
+      <!-- Protocol Metadata Footer -->
+      <div id="protocol-footer" class="protocol-footer">
+        ORBITAL PRODUCTIVITY PROTOCOL • MADE BY SAMEER
+      </div>
+    </section>
+
+    <!-- SCREEN 2: MESSAGES (COMM) -->
+    <section id="view-messages" class="screen-view">
+      <div class="section-headline">
+        <span class="section-caption">Transmissions</span>
+        <h1 class="section-title">Reminder Engine</h1>
+      </div>
+
+      <!-- Live Preview Card -->
+      <div class="preview-card">
+        <div class="preview-badge">
+          <span class="material-symbols-outlined" style="font-size: 14px;">visibility</span>
+          Live Notification Preview
+        </div>
+        <div style="font-size: 11px; color: var(--color-on-surface-variant); margin-bottom: 4px;">Before Deadline Notice:</div>
+        <div id="preview-before-text" class="preview-bubble">
+          Loading sample notification preview...
+        </div>
+        <div style="font-size: 11px; color: var(--color-tertiary); margin-bottom: 4px; margin-top: 10px;">Overdue Notice:</div>
+        <div id="preview-overdue-text" class="preview-bubble overdue-preview">
+          Loading overdue sample preview...
+        </div>
+      </div>
+
+      <!-- Message Form -->
+      <div class="settings-section-card">
+        <h3 class="settings-card-title">
+          <span class="material-symbols-outlined" style="font-size: 18px;">chat</span>
+          Custom Transmission Templates
+        </h3>
+
+        <!-- Before Deadline Template -->
+        <div class="form-group">
+          <label class="form-label" for="msg-before-deadline">Before-Deadline Message</label>
+          <div class="chips-container">
+            <button class="placeholder-chip" type="button" data-target="msg-before-deadline" data-insert="{task}">+ {task}</button>
+            <button class="placeholder-chip" type="button" data-target="msg-before-deadline" data-insert="{time_left}">+ {time_left}</button>
+            <button class="placeholder-chip" type="button" data-target="msg-before-deadline" data-insert="{thought}">+ {thought}</button>
+          </div>
+          <textarea id="msg-before-deadline" class="input-pod input-pod-textarea" rows="3" placeholder="Enter before deadline reminder format..."></textarea>
+        </div>
+
+        <!-- Overdue Template -->
+        <div class="form-group">
+          <label class="form-label" for="msg-overdue">Overdue Nudge Message</label>
+          <div class="chips-container">
+            <button class="placeholder-chip" type="button" data-target="msg-overdue" data-insert="{task}">+ {task}</button>
+            <button class="placeholder-chip" type="button" data-target="msg-overdue" data-insert="{time_left}">+ {time_left}</button>
+            <button class="placeholder-chip" type="button" data-target="msg-overdue" data-insert="{thought}">+ {thought}</button>
+          </div>
+          <textarea id="msg-overdue" class="input-pod input-pod-textarea" rows="3" placeholder="Enter overdue nudge format..."></textarea>
+        </div>
+      </div>
+
+      <!-- Timing Parameters -->
+      <div class="settings-section-card">
+        <h3 class="settings-card-title">
+          <span class="material-symbols-outlined" style="font-size: 18px;">schedule</span>
+          Calibration Parameters
+        </h3>
+
+        <div class="date-time-row">
+          <div class="form-group">
+            <label class="form-label" for="input-warning-minutes">Early Warning (Mins)</label>
+            <input id="input-warning-minutes" class="input-pod" type="number" min="1" max="1440" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="input-repeat-gap">Repeat Gap (Mins)</label>
+            <input id="input-repeat-gap" class="input-pod" type="number" min="5" max="1440" />
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-actions" style="margin-top: 10px; margin-bottom: 30px;">
+        <button id="btn-reset-messages" class="btn-secondary" type="button">Reset Defaults</button>
+        <button id="btn-save-messages" class="btn-primary" type="button">Save Settings</button>
+      </div>
+    </section>
+
+    <!-- SCREEN 3: THOUGHTS (SYNAPSE) -->
+    <section id="view-thoughts" class="screen-view">
+      <div class="section-headline">
+        <span class="section-caption">Neural Network</span>
+        <h1 class="section-title">My Thoughts</h1>
+      </div>
+
+      <div class="thoughts-header-bar">
+        <span class="task-section-title" id="thoughts-count-label">0 THOUGHTS STORED</span>
+        <button id="btn-open-add-thought" class="btn-primary" type="button" style="padding: 8px 16px; font-size: 12px; display: flex; align-items: center; gap: 4px;">
+          <span class="material-symbols-outlined" style="font-size: 16px;">add</span> Add Thought
+        </button>
+      </div>
+
+      <!-- List of Thoughts -->
+      <div id="thoughts-list-container" class="thoughts-list">
+        <!-- Rendered dynamically via app.js -->
+      </div>
+    </section>
+
+    <!-- SCREEN 4: SETTINGS (PROTOCOL) -->
+    <section id="view-settings" class="screen-view">
+      <div class="section-headline">
+        <span class="section-caption">System Protocol</span>
+        <h1 class="section-title">Settings</h1>
+      </div>
+
+      <!-- Animation Selector -->
+      <div class="settings-section-card">
+        <h3 class="settings-card-title">
+          <span class="material-symbols-outlined" style="font-size: 18px;">animation</span>
+          Thought Banner Animation
+        </h3>
+        <div class="animation-options-grid">
+          <button class="anim-option-btn" type="button" data-anim="typewriter">Typewriter</button>
+          <button class="anim-option-btn" type="button" data-anim="fade">Smooth Fade</button>
+          <button class="anim-option-btn" type="button" data-anim="slide">Gliding Slide</button>
+          <button class="anim-option-btn" type="button" data-anim="none">Static (None)</button>
+        </div>
+
+        <div class="form-group" style="margin-top: 14px;">
+          <label class="form-label">Rotation Interval</label>
+          <div class="slider-container">
+            <input id="slider-thought-seconds" class="range-slider" type="range" min="3" max="60" step="1" value="8" />
+            <div id="badge-thought-seconds" class="slider-val-badge">8s</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Notification Permissions & Testing -->
+      <div class="settings-section-card">
+        <h3 class="settings-card-title">
+          <span class="material-symbols-outlined" style="font-size: 18px;">notifications_active</span>
+          Android Notifications & Alarms
+        </h3>
+        <div class="permission-status-banner">
+          <span style="font-size: 13px; font-weight: 600;">System Permission</span>
+          <span id="perm-status-badge" class="permission-badge pending">Checking...</span>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <button id="btn-request-perms" class="btn-primary" type="button" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;">
+            <span class="material-symbols-outlined" style="font-size: 18px;">verified_user</span> Allow Notifications
+          </button>
+          <button id="btn-test-notification" class="btn-secondary" type="button" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;">
+            <span class="material-symbols-outlined" style="font-size: 18px;">send</span> Send Test Notification
+          </button>
+        </div>
+      </div>
+
+      <!-- Dangerous Actions -->
+      <div class="settings-section-card">
+        <h3 class="settings-card-title" style="color: var(--color-tertiary);">
+          <span class="material-symbols-outlined" style="font-size: 18px; color: var(--color-tertiary);">warning</span>
+          Core Reset
+        </h3>
+        <p style="font-size: 12px; color: var(--color-on-surface-variant); line-height: 1.45; margin-bottom: 14px;">
+          Reset all tasks, messages, custom thoughts, and settings back to default factory parameters.
+        </p>
+        <button id="btn-reset-all" class="btn-danger" type="button" style="width: 100%;">
+          Reset Everything
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Bottom Navigation Bar -->
+  <nav class="bottom-nav">
+    <div class="nav-inner">
+      <div class="nav-tabs-row">
+        <button class="nav-tab-btn active" data-tab="home" type="button" aria-label="Orbit Home">
+          <span class="material-symbols-outlined nav-tab-icon">home</span>
+          <span class="nav-tab-label">Orbit</span>
+        </button>
+        <button class="nav-tab-btn" data-tab="messages" type="button" aria-label="Messages">
+          <span class="material-symbols-outlined nav-tab-icon">terminal</span>
+          <span class="nav-tab-label">Comm</span>
+        </button>
+        <button class="nav-tab-btn" data-tab="thoughts" type="button" aria-label="Thoughts">
+          <span class="material-symbols-outlined nav-tab-icon">psychology</span>
+          <span class="nav-tab-label">Synapse</span>
+        </button>
+        <button class="nav-tab-btn" data-tab="settings" type="button" aria-label="Settings">
+          <span class="material-symbols-outlined nav-tab-icon">tune</span>
+          <span class="nav-tab-label">Settings</span>
+        </button>
+      </div>
+      <span id="nav-protocol-tag" class="nav-protocol-tag">ORBITAL PRODUCTIVITY PROTOCOL • MADE BY SAMEER</span>
+    </div>
+  </nav>
+
+  <!-- MODAL: ADD / EDIT TASK -->
+  <div id="modal-task" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2 id="modal-task-title" class="modal-title">Deploy Mission Task</h2>
+        <button id="btn-task-close" class="modal-close-btn" type="button" aria-label="Close modal">
+          <span class="material-symbols-outlined" style="font-size: 18px;">close</span>
+        </button>
+      </div>
+
+      <form id="form-task" autocomplete="off">
+        <input type="hidden" id="task-id-input" />
+        <div class="form-group">
+          <label class="form-label" for="task-title-input">Mission Title *</label>
+          <input id="task-title-input" class="input-pod" type="text" placeholder="e.g. Deploy Lunar Rover Sensor Patch" required />
+        </div>
+
+        <div class="date-time-row">
+          <div class="form-group">
+            <label class="form-label" for="task-date-input">Orbit Date *</label>
+            <input id="task-date-input" class="input-pod" type="date" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="task-time-input">Orbit Time *</label>
+            <input id="task-time-input" class="input-pod" type="time" required />
+          </div>
+        </div>
+
+        <!-- Task Intensity Selector -->
+        <div class="form-group">
+          <label class="form-label">Mission Intensity</label>
+          <div class="intensity-options-grid">
+            <button type="button" class="intensity-option-btn" data-intensity="low">
+              <span class="intensity-dot low"></span>
+              <span>Low</span>
+            </button>
+            <button type="button" class="intensity-option-btn selected" data-intensity="medium">
+              <span class="intensity-dot medium"></span>
+              <span>Medium</span>
+            </button>
+            <button type="button" class="intensity-option-btn" data-intensity="high">
+              <span class="intensity-dot high"></span>
+              <span>Critical</span>
+            </button>
+          </div>
+          <input type="hidden" id="task-intensity-input" value="medium" />
+        </div>
+
+        <!-- Warning shown if deadline is in the past -->
+        <div id="task-past-warning" class="warning-banner" style="display: none;">
+          <span class="material-symbols-outlined" style="font-size: 18px;">warning</span>
+          <span>This deadline has already passed! The task will be saved as Overdue.</span>
+        </div>
+
+        <div class="modal-actions">
+          <button id="btn-task-cancel" class="btn-secondary" type="button">Abort</button>
+          <button id="btn-task-save" class="btn-primary" type="submit">Engage</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: ADD / EDIT THOUGHT -->
+  <div id="modal-thought" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2 id="modal-thought-title" class="modal-title">New Orbital Thought</h2>
+        <button id="btn-thought-close" class="modal-close-btn" type="button" aria-label="Close modal">
+          <span class="material-symbols-outlined" style="font-size: 18px;">close</span>
+        </button>
+      </div>
+
+      <form id="form-thought">
+        <input type="hidden" id="thought-id-input" />
+        <div class="form-group">
+          <label class="form-label" for="thought-text-input">Thought Content *</label>
+          <textarea id="thought-text-input" class="input-pod input-pod-textarea" rows="4" placeholder="Enter inspiring orbital thought..." required></textarea>
+        </div>
+        <div class="modal-actions">
+          <button id="btn-thought-cancel" class="btn-secondary" type="button">Cancel</button>
+          <button id="btn-thought-save" class="btn-primary" type="submit">Save Thought</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: CONFIRMATION DIALOG -->
+  <div id="modal-confirm" class="modal-overlay">
+    <div class="modal-card" style="max-width: 400px; text-align: center;">
+      <div style="margin-bottom: 12px;">
+        <span class="material-symbols-outlined" style="font-size: 42px; color: var(--color-tertiary);">help</span>
+      </div>
+      <h3 id="confirm-modal-title" style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">Confirm Action</h3>
+      <p id="confirm-modal-msg" style="font-size: 13px; color: var(--color-on-surface-variant); line-height: 1.5; margin-bottom: 20px;">
+        Are you sure you want to proceed?
+      </p>
+      <div class="modal-actions" style="justify-content: center;">
+        <button id="btn-confirm-cancel" class="btn-secondary" type="button">Cancel</button>
+        <button id="btn-confirm-ok" class="btn-danger" type="button">Proceed</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- Safe separated scripts: Content, Config, and Logic -->
+  <script src="thoughts.js"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "appId": "com.cosmotask.app",
+  "appName": "CosmoTask",
+  "webDir": "www",
+  "bundledWebRuntime": false,
+  "plugins": {
+    "LocalNotifications": {
+      "smallIcon": "ic_stat_icon_config_sample",
+      "iconColor": "#C4C0FF"
+    }
+  }
+}

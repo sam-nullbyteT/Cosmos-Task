@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">CosmoTask</string>
+    <string name="title_activity_main">CosmoTask</string>
+    <string name="package_name">com.cosmotask.app</string>
+    <string name="custom_url_scheme">com.cosmotask.app</string>
+</resources>

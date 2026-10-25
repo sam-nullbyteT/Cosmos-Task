@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100%" height="100%">
+  <defs>
+    <!-- Background Space Halo -->
+    <radialGradient id="spaceHalo" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#26225c" stop-opacity="0.8" />
+      <stop offset="50%" stop-color="#17114d" stop-opacity="0.5" />
+      <stop offset="100%" stop-color="#0f0645" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- Rocket Hull Main Gradient -->
+    <linearGradient id="rocketBody" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="45%" stop-color="#e4dfff" />
+      <stop offset="80%" stop-color="#c4c0ff" />
+      <stop offset="100%" stop-color="#8c88db" />
+    </linearGradient>
+
+    <!-- Rocket Shading -->
+    <linearGradient id="rocketShade" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0" />
+      <stop offset="60%" stop-color="#231c6c" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#090041" stop-opacity="0.6" />
+    </linearGradient>
+
+    <!-- Nose Cone / Wings Coral Gradient -->
+    <linearGradient id="coralAccent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffb2b9" />
+      <stop offset="60%" stop-color="#f06076" />
+      <stop offset="100%" stop-color="#93000a" />
+    </linearGradient>
+
+    <!-- Porthole Visor Glass -->
+    <radialGradient id="portholeGlass" cx="35%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#74b9ff" />
+      <stop offset="50%" stop-color="#413c8a" />
+      <stop offset="100%" stop-color="#090041" />
+    </radialGradient>
+
+    <!-- Thruster Flame Outer -->
+    <linearGradient id="flameOuter" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffb2b9" stop-opacity="1" />
+      <stop offset="40%" stop-color="#f06076" stop-opacity="0.9" />
+      <stop offset="80%" stop-color="#74b9ff" stop-opacity="0.5" />
+      <stop offset="100%" stop-color="#c4c0ff" stop-opacity="0" />
+    </linearGradient>
+
+    <!-- Thruster Flame Core -->
+    <linearGradient id="flameCore" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="35%" stop-color="#74b9ff" />
+      <stop offset="80%" stop-color="#8c88db" />
+      <stop offset="100%" stop-color="#0f0645" stop-opacity="0" />
+    </linearGradient>
+
+    <!-- Glow Filter -->
+    <filter id="rocketGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="12" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Ambient Space Aura -->
+  <circle cx="400" cy="400" r="360" fill="url(#spaceHalo)" />
+
+  <!-- Distant Stars and Constellation Dots -->
+  <g opacity="0.85">
+    <!-- Starburst Top Left -->
+    <path d="M 210,140 Q 210,165 235,165 Q 210,165 210,190 Q 210,165 185,165 Q 210,165 210,140 Z" fill="#ffffff" filter="url(#rocketGlow)" />
+    <!-- Starburst Bottom Right -->
+    <path d="M 640,490 Q 640,510 660,510 Q 640,510 640,530 Q 640,510 620,510 Q 640,510 640,490 Z" fill="#c4c0ff" />
+    <!-- Starburst Far Right -->
+    <path d="M 690,260 Q 690,272 702,272 Q 690,272 690,284 Q 690,272 678,272 Q 690,272 690,260 Z" fill="#74b9ff" />
+    <!-- Small Stars -->
+    <circle cx="150" cy="320" r="3" fill="#ffffff" />
+    <circle cx="280" cy="220" r="2.5" fill="#c4c0ff" />
+    <circle cx="580" cy="180" r="4" fill="#ffffff" />
+    <circle cx="220" cy="460" r="2.5" fill="#74b9ff" />
+    <circle cx="680" cy="620" r="3" fill="#c4c0ff" />
+    <circle cx="360" cy="680" r="3" fill="#ffffff" opacity="0.6" />
+    <circle cx="500" cy="630" r="2" fill="#ffb2b9" />
+  </g>
+
+  <!-- Orbital Rings / Planetary Arc in Background -->
+  <path d="M 120,620 C 260,720 540,700 710,540" fill="none" stroke="#5955a4" stroke-width="2.5" stroke-dasharray="8,10" opacity="0.4" />
+  <path d="M 160,650 C 300,740 520,720 670,580" fill="none" stroke="#74b9ff" stroke-width="1.5" opacity="0.3" />
+
+  <!-- Rocket Group - Tilted at 45 degrees towards top right -->
+  <g transform="translate(410, 390) rotate(-42)">
+
+    <!-- Thruster Flame Outer -->
+    <path d="M -32,150 Q -70,270 0,380 Q 70,270 32,150 Z" fill="url(#flameOuter)" filter="url(#rocketGlow)" />
+    <!-- Thruster Flame Core -->
+    <path d="M -18,150 Q -38,240 0,300 Q 38,240 18,150 Z" fill="url(#flameCore)" />
+    <!-- Plasma Spark Particles -->
+    <circle cx="-12" cy="330" r="5" fill="#ffffff" filter="url(#rocketGlow)" />
+    <circle cx="18" cy="350" r="4" fill="#74b9ff" />
+    <circle cx="0" cy="410" r="3" fill="#ffb2b9" />
+
+    <!-- Left Wing -->
+    <path d="M -60,60 L -140,165 Q -130,185 -95,175 L -55,140 Z" fill="url(#coralAccent)" filter="url(#rocketGlow)" />
+    <path d="M -60,60 L -140,165 Q -130,185 -95,175 L -55,140 Z" fill="url(#rocketShade)" />
+    <!-- Wing Highlight -->
+    <path d="M -60,65 L -130,160" stroke="#ffffff" stroke-width="2" opacity="0.6" />
+
+    <!-- Right Wing -->
+    <path d="M 60,60 L 140,165 Q 130,185 95,175 L 55,140 Z" fill="url(#coralAccent)" filter="url(#rocketGlow)" />
+    <path d="M 60,60 L 140,165 Q 130,185 95,175 L 55,140 Z" fill="url(#rocketShade)" />
+    <!-- Wing Highlight -->
+    <path d="M 60,65 L 130,160" stroke="#ffffff" stroke-width="2" opacity="0.6" />
+
+    <!-- Rocket Engine Nozzle Base -->
+    <path d="M -42,142 L -30,165 L 30,165 L 42,142 Z" fill="#231c6c" stroke="#8c88db" stroke-width="2" />
+
+    <!-- Rocket Main Fuselage Body -->
+    <path d="M 0,-210 C 65,-120 75,50 60,146 L -60,146 C -75,50 -65,-120 0,-210 Z" fill="url(#rocketBody)" />
+    <path d="M 0,-210 C 65,-120 75,50 60,146 L -60,146 C -75,50 -65,-120 0,-210 Z" fill="url(#rocketShade)" />
+
+    <!-- Nose Cone Cap -->
+    <path d="M 0,-210 C 32,-165 48,-115 50,-85 L -50,-85 C -48,-115 -32,-165 0,-210 Z" fill="url(#coralAccent)" />
+    <path d="M 0,-210 C 32,-165 48,-115 50,-85 L -50,-85 C -48,-115 -32,-165 0,-210 Z" fill="url(#rocketShade)" opacity="0.3" />
+
+    <!-- Center Fin / Dorsal Stabilizer -->
+    <path d="M -7,40 L 0,-10 L 7,40 L 4,146 L -4,146 Z" fill="url(#coralAccent)" />
+    <path d="M 0,-10 L 4,146" stroke="#ffffff" stroke-width="1.5" opacity="0.7" />
+
+    <!-- Porthole Window Outer Ring -->
+    <circle cx="0" cy="-15" r="38" fill="#1b1651" stroke="#e4dfff" stroke-width="4" filter="url(#rocketGlow)" />
+    <!-- Porthole Window Glass -->
+    <circle cx="0" cy="-15" r="30" fill="url(#portholeGlass)" />
+    <!-- Porthole Star / Reflection -->
+    <path d="M -8,-25 Q 5,-28 12,-15 Q -2,-18 -8,-25 Z" fill="#ffffff" opacity="0.8" />
+    <circle cx="10" cy="-8" r="3" fill="#ffffff" opacity="0.9" />
+
+    <!-- Panel Seam Lines -->
+    <path d="M -56,50 Q 0,65 56,50" fill="none" stroke="#231c6c" stroke-width="2" opacity="0.4" />
+    <path d="M -58,95 Q 0,110 58,95" fill="none" stroke="#231c6c" stroke-width="2" opacity="0.4" />
+
+    <!-- Subtle Hull Specular Highlight Curve -->
+    <path d="M -15,-180 C -40,-100 -48,30 -38,125" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" opacity="0.65" />
+  </g>
+</svg>
