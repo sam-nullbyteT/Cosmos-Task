@@ -38,6 +38,8 @@ npm install
 npm start
 ```
 Open your browser and navigate to `http://localhost:8080`.
+  or 
+https://cosmostask.vercel.app/
 
 ### Building for Android
 
