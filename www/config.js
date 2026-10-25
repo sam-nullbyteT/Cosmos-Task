@@ -23,9 +23,9 @@ const CONFIG = {
   },
 
   // App Creator / Author Credit & Version
-  version: "V 1.0.2",
+  version: "V 1.0.3",
   author: "Sameer",
-  footerText: "ORBITAL PRODUCTIVITY PROTOCOL • V 1.0.2 • MADE BY SAMEER"
+  footerText: "ORBITAL PRODUCTIVITY PROTOCOL • V 1.0.3 • MADE BY SAMEER"
 };
 
 // Make available globally in browser and module environments

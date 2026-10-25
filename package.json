@@ -1,6 +1,6 @@
 {
   "name": "cosmotask-app",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "CosmoTask - Neumorphic Orbital To-Do Android App with Reminders and Thoughts",
   "main": "app.js",
   "scripts": {
