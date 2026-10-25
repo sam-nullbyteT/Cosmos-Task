@@ -22,9 +22,10 @@ const CONFIG = {
     overdue: 'Alert: "{task}" is now overdue! ⚠️ "{thought}"'
   },
 
-  // App Creator / Author Credit
+  // App Creator / Author Credit & Version
+  version: "V 1.0.2",
   author: "Sameer",
-  footerText: "ORBITAL PRODUCTIVITY PROTOCOL • MADE BY SAMEER"
+  footerText: "ORBITAL PRODUCTIVITY PROTOCOL • V 1.0.2 • MADE BY SAMEER"
 };
 
 // Make available globally in browser and module environments

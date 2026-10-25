@@ -224,6 +224,21 @@ body {
   letter-spacing: -0.01em;
 }
 
+.brand-version-badge {
+  font-size: 9px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 9999px;
+  background: rgba(196, 192, 255, 0.14);
+  color: var(--color-primary);
+  border: 1px solid rgba(196, 192, 255, 0.3);
+  letter-spacing: 0.06em;
+  line-height: 1.4;
+  display: inline-flex;
+  align-items: center;
+  box-shadow: 0 0 6px rgba(196, 192, 255, 0.15);
+}
+
 .brand-pulse-dot {
   width: 7px;
   height: 7px;

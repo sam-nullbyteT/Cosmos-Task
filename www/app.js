@@ -1671,6 +1671,15 @@
     renderCounters();
     renderTasks();
     updateFooterCredits();
+    updateAppVersion();
+  }
+
+  function updateAppVersion() {
+    const version = (window.CONFIG && window.CONFIG.version) || "V 1.0.2";
+    const badgeEl = document.getElementById("app-version-badge");
+    if (badgeEl) badgeEl.textContent = version;
+    const subtitleEl = document.getElementById("app-version-subtitle");
+    if (subtitleEl) subtitleEl.textContent = `MISSION CONTROL • ${version}`;
   }
 
   function updateFooterCredits() {
